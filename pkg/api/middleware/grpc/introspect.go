@@ -1,4 +1,4 @@
-package middleware
+package grpc
 
 import (
 	"context"
@@ -18,8 +18,8 @@ type IntrospectionInterceptor struct {
 
 //NewIntrospectionInterceptor intercepts every call and checks for a correct Bearer token using OAuth2 introspection
 //by sending the token to the introspection endpoint)
-func NewIntrospectionInterceptor(issuer, keyPath string) (*IntrospectionInterceptor, error) {
-	resourceServer, err := rs.NewResourceServerFromKeyFile(issuer, keyPath)
+func NewIntrospectionInterceptor(issuer, clientId, clientSecret string) (*IntrospectionInterceptor, error) {
+	resourceServer, err := rs.NewResourceServerClientCredentials(issuer, clientId, clientSecret)
 	if err != nil {
 		return nil, err
 	}
